@@ -37,7 +37,7 @@ The project is inspired by a “Spotify Wrapped” experience — but for **glob
 ## Live Demo
 
 **Frontend (Chat UI):**  
-👉 [Live Demo](https://cf-ai-internet-wrapped.pages.dev/)
+👉 [https://cf-ai-internet-wrapped.pages.dev/](https://cf-ai-internet-wrapped.pages.dev/)
 
 **API (Worker Backend):**  
 👉 https://cf_ai_internet_wrapped.trisha-darure.workers.dev
