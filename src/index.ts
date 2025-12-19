@@ -3,7 +3,6 @@ import { SummaryStore } from "./summary_store";
 export default {
   async fetch(request: Request, env: any) {
     const url = new URL(request.url);
-    const DO_URL = "https://summary-store";
 
     // Route for summary via AI
     if (url.pathname === "/summarize" && request.method === "POST") {
