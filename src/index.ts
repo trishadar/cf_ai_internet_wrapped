@@ -260,9 +260,26 @@ export default {
             const values = radarData.result.main.values;
 
             // Prepare a prompt for the AI summarizer
-            const aiPrompt = `Summarize the Internet traffic trends for ${countryCode} over the past 7 days using the following data: 
-            Timestamps: ${timestamps.join(", ")}
-            Traffic values: ${values.join(", ")}`;
+            const aiPrompt = `You are an Internet analytics assistant.
+
+            Analyze Internet traffic data for the country ${countryCode} over the past 7 days.
+
+            Use the data below to generate a clear, user-friendly summary.
+
+            Data provided:
+            - Timestamps (chronological): ${timestamps.join(", ")}
+            - Traffic values (corresponding to each timestamp): ${values.join(", ")}
+
+            Output format requirements:
+            1. Overview
+            Give a 2–3 sentence high-level summary of how Internet traffic behaved overall during the past week.
+
+            2. Traffic Trend
+            In 2-3 sentences, describe whether traffic increased, decreased, fluctuated, or remained stable. Mention any noticeable spikes or drops and approximately when they occurred.
+
+            4. Plain-English Takeaway
+            End with one short sentence explaining what this trend means for an everyday Internet user in this country.
+            `;
 
             // Call Workers AI to summarize
             const aiResponse = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
