@@ -1,10 +1,37 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
+// src/summary_store.ts
+var SummaryStore = class {
+  static {
+    __name(this, "SummaryStore");
+  }
+  constructor(state) {
+    this.state = state;
+  }
+  // Handle requests sent to this Durable Object
+  async fetch(request) {
+    const url = new URL(request.url);
+    if (url.pathname === "/get") {
+      const data = await this.state.storage.get("summary") || {};
+      return new Response(JSON.stringify(data), { status: 200 });
+    }
+    if (url.pathname === "/set" && request.method === "POST") {
+      const body = await request.json();
+      await this.state.storage.put("summary", body);
+      return new Response("Stored summary!", { status: 200 });
+    }
+    return new Response("Not Found", { status: 404 });
+  }
+};
+
 // src/index.ts
 var src_default = {
-  async fetch(request) {
-    return new Response("Hello, Cloudflare Worker!", { status: 200 });
+  async fetch(request, env) {
+    const id = env.SUMMARY_STORE.idFromName("default");
+    const obj = env.SUMMARY_STORE.get(id);
+    const response = await obj.fetch(request);
+    return response;
   }
 };
 
@@ -49,7 +76,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-Vr8yC3/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-tnUCKk/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -81,7 +108,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-Vr8yC3/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-tnUCKk/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
@@ -178,6 +205,7 @@ if (typeof middleware_insertion_facade_default === "object") {
 }
 var middleware_loader_entry_default = WRAPPED_ENTRY;
 export {
+  SummaryStore,
   __INTERNAL_WRANGLER_MIDDLEWARE__,
   middleware_loader_entry_default as default
 };
