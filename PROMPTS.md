@@ -28,5 +28,8 @@ This file documents all AI prompts used in building the AI Internet Wrapped proj
 **Prompt 7:** Creating frontend
 "show me how to create chat-bot style front end for user input"
 
-**Prompt 8:** Fixing frontend error
+**Prompt 8:** Fixing front-end error
 "why is the browser blocking my local HTML live server from communicating with my deployed Worker and how to fix it"
+
+**Prompt 9:** Deploying front-end
+"how to deploy front-end on Pages"
