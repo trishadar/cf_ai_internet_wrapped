@@ -1,5 +1,11 @@
 import { SummaryStore } from "./summary_store";
 
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*", // or replace * with your frontend URL
+  "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
 type RadarTrafficResponse = {
   success: boolean;
   errors: any[];
@@ -218,6 +224,11 @@ export default {
   async fetch(request: Request, env: any) {
     const url = new URL(request.url);
 
+    // Handle CORS preflight requests
+    if (request.method === "OPTIONS") {
+      return new Response(null, { headers: CORS_HEADERS });
+    }
+
     if (url.pathname === "/summarize-country" && request.method === "POST") {
         try {
             
@@ -274,12 +285,12 @@ export default {
         
             return new Response(
                 JSON.stringify({ summary }),
-                { headers: { "Content-Type": "application/json" } }
+                { headers: { "Content-Type": "application/json", ...CORS_HEADERS } }
             );
 
         } catch (err) {
             console.error(err);
-            return new Response("Internal Server Error", { status: 500 });
+            return new Response("Internal Server Error", { status: 500, headers: CORS_HEADERS });
         }
     }
 
@@ -312,12 +323,12 @@ export default {
         
             return new Response(
                 JSON.stringify({ summary }),
-                { headers: { "Content-Type": "application/json" } }
+                { headers: { "Content-Type": "application/json", ...CORS_HEADERS } }
             );
 
         } catch (err) {
             console.error(err);
-            return new Response("Internal Server Error", { status: 500 });
+            return new Response("Internal Server Error", { status: 500, headers: CORS_HEADERS });
         }
     }
 
@@ -330,11 +341,11 @@ export default {
             return res;
         } catch (err) {
             console.error(err);
-            return new Response("Internal Server Error", { status: 500 });
+            return new Response("Internal Server Error", { status: 500, headers: CORS_HEADERS });
         }
     }
     
-    return new Response("Not Found", { status: 404 });
+    return new Response("Not Found", { status: 404, headers: CORS_HEADERS });
 },
 
 };

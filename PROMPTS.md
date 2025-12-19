@@ -19,5 +19,8 @@ This file documents all AI prompts used in building the AI Internet Wrapped proj
 **Prompt 4:** Choosing an API for trend data
 "give me API options to choose from"
 
-**Prompt 4:** Integrating API for summary
-"show me how to use API to generate internet trend summary for a site that user inputs"
+**Prompt 5:** Integrating API for summary
+"show me how to use API to generate traffic summary for country that user inputs"
+
+**Prompt 6:** Mapping country to ISO code
+"show me how to map country name that user inputs to its ISO code"
