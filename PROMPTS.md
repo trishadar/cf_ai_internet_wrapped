@@ -15,3 +15,9 @@ This file documents all AI prompts used in building the AI Internet Wrapped proj
 
 **Prompt 3:** Integrating the AI LLM
 "show me how to add AI LLM to worker"
+
+**Prompt 4:** Choosing an API for trend data
+"give me API options to choose from"
+
+**Prompt 4:** Integrating API for summary
+"show me how to use API to generate internet trend summary for a site that user inputs"

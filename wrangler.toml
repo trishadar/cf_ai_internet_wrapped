@@ -13,3 +13,6 @@ new_sqlite_classes = ["SummaryStore"]
 
 [ai]
 binding = "AI"
+
+[vars]
+CF_API_TOKEN = "Wu93lILd8g5BP9e01c1wBUFRLhsCPDY0BBxdvKf0"
