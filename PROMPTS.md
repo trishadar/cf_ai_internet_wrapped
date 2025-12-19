@@ -24,3 +24,9 @@ This file documents all AI prompts used in building the AI Internet Wrapped proj
 
 **Prompt 6:** Mapping country to ISO code
 "show me how to map country name that user inputs to its ISO code"
+
+**Prompt 7:** Creating frontend
+"show me how to create chat-bot style front end for user input"
+
+**Prompt 8:** Fixing frontend error
+"why is the browser blocking my local HTML live server from communicating with my deployed Worker and how to fix it"
