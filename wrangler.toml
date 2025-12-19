@@ -1,4 +1,4 @@
-name = "cf_ai_internet_wrapped"
+name = "cf-ai-internet-wrapped"
 main = "src/index.ts"
 compatibility_date = "2025-12-18"
 
