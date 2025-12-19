@@ -9,29 +9,32 @@ export default {
     if (url.pathname === "/summarize" && request.method === "POST") {
         try {
             const body = (await request.json()) as { text: string };
+            console.log("POST body:", body);
             const text = body.text;
 
             // Call the model via env.AI.run
             const aiResponse = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
                 prompt: text,
             })
+            console.log("AI Response:", aiResponse);
 
             // aiResponse contains the model’s output among other things
-            const summary = aiResponse.output_text || ""
+            const summary = aiResponse.response || aiResponse.output_text || "";
+            console.log("Summary to store:", summary);
 
             // Store summary in Durable Object
-                const id = env.SUMMARY_STORE.idFromName("default");
-                const obj = env.SUMMARY_STORE.get(id);
-                await obj.fetch("https://example.com/set", {
-                    method: "POST",
-                    body: JSON.stringify({ summary }),
-                    headers: { "Content-Type": "application/json" }
-                });
-           
-                return new Response(
-                    JSON.stringify({ summary }),
-                    { headers: { "Content-Type": "application/json" } }
-                );
+            const id = env.SUMMARY_STORE.idFromName("default");
+            const obj = env.SUMMARY_STORE.get(id);
+            await obj.fetch("https://example.com/set", {
+                method: "POST",
+                body: JSON.stringify({ summary }),
+                headers: { "Content-Type": "application/json" }
+            });
+        
+            return new Response(
+                JSON.stringify({ summary }),
+                { headers: { "Content-Type": "application/json" } }
+            );
 
         } catch (err) {
             console.error(err);
