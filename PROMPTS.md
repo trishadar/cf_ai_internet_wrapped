@@ -6,4 +6,5 @@ This file documents all AI prompts used in building the AI Internet Wrapped proj
 
 ## 1. LLM Prompts for _
 
-**Prompt 1:** _
+**Prompt 1:** Setting up project files
+"show me how to set up wrangler worker project manually"
