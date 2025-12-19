@@ -9,7 +9,7 @@ bindings = [
 
 [[migrations]]
 tag = "v1"
-new_classes = ["SummaryStore"]
+new_sqlite_classes = ["SummaryStore"]
 
 [ai]
 binding = "AI"
