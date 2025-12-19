@@ -12,3 +12,6 @@ This file documents all AI prompts used in building the AI Internet Wrapped proj
 
 **Prompt 3:** Connecting Durable Object to Worker
 "show me how to connect the durable object to worker"
+
+**Prompt 3:** Integrating the AI LLM
+"show me how to add AI LLM to worker"

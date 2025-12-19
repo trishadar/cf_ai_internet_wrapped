@@ -20,5 +20,10 @@
   "homepage": "https://github.com/trishadar/cf_ai_internet_wrapped#readme",
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20251217.0"
+  },
+  "dependencies": {
+    "@cloudflare/ai": "^1.2.2",
+    "base64-js": "^1.5.1",
+    "mustache": "^4.2.0"
   }
 }

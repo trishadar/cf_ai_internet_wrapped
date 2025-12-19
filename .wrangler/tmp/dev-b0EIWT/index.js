@@ -28,10 +28,27 @@ var SummaryStore = class {
 // src/index.ts
 var src_default = {
   async fetch(request, env) {
+    const url = new URL(request.url);
+    if (url.pathname === "/summarize" && request.method === "POST") {
+      const { text } = await request.json();
+      const aiResponse = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+        prompt: text
+      });
+      const summary = aiResponse.output_text || "";
+      const id2 = env.SUMMARY_STORE.idFromName("default");
+      const obj2 = env.SUMMARY_STORE.get(id2);
+      await obj2.fetch(new Request("/set", {
+        method: "POST",
+        body: JSON.stringify({ summary }),
+        headers: { "Content-Type": "application/json" }
+      }));
+      return new Response(JSON.stringify({ summary }), {
+        headers: { "Content-Type": "application/json" }
+      });
+    }
     const id = env.SUMMARY_STORE.idFromName("default");
     const obj = env.SUMMARY_STORE.get(id);
-    const response = await obj.fetch(request);
-    return response;
+    return obj.fetch(request);
   }
 };
 
@@ -76,7 +93,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-tnUCKk/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-KtTLiY/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -108,7 +125,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-tnUCKk/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-KtTLiY/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
